@@ -13,6 +13,7 @@
 		87DA4860275A63F200CD850D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87DA485F275A63F200CD850D /* Cocoa.framework */; };
 		87DA4862275A63FC00CD850D /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87DA4861275A63FC00CD850D /* IOKit.framework */; };
 		87DA4864275A640300CD850D /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87DA4863275A640300CD850D /* CoreVideo.framework */; };
+		87DA4867275A6C2300CD850D /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87DA4866275A6C2300CD850D /* libGLEW.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,6 +37,8 @@
 		87DA485F275A63F200CD850D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		87DA4861275A63FC00CD850D /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		87DA4863275A640300CD850D /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		87DA4865275A6C1800CD850D /* GLEW */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GLEW; sourceTree = "<group>"; };
+		87DA4866275A6C2300CD850D /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = Libs/libGLEW.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +48,7 @@
 			files = (
 				87DA4864275A640300CD850D /* CoreVideo.framework in Frameworks */,
 				87DA4862275A63FC00CD850D /* IOKit.framework in Frameworks */,
+				87DA4867275A6C2300CD850D /* libGLEW.a in Frameworks */,
 				87DA4860275A63F200CD850D /* Cocoa.framework in Frameworks */,
 				87DA4854275A5F2D00CD850D /* OpenGL.framework in Frameworks */,
 				87DA485E275A61DA00CD850D /* libglfw3.a in Frameworks */,
@@ -91,6 +95,7 @@
 		87DA484E275A5D6100CD850D /* includes */ = {
 			isa = PBXGroup;
 			children = (
+				87DA4865275A6C1800CD850D /* GLEW */,
 				87DA484F275A5D7100CD850D /* GLFW */,
 			);
 			path = includes;
@@ -104,6 +109,7 @@
 				87DA485F275A63F200CD850D /* Cocoa.framework */,
 				87DA4853275A5F2D00CD850D /* OpenGL.framework */,
 				87DA485D275A61DA00CD850D /* libglfw3.a */,
+				87DA4866275A6C2300CD850D /* libGLEW.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
