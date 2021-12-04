@@ -14,6 +14,11 @@
 		87DA4862275A63FC00CD850D /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87DA4861275A63FC00CD850D /* IOKit.framework */; };
 		87DA4864275A640300CD850D /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87DA4863275A640300CD850D /* CoreVideo.framework */; };
 		87DA4867275A6C2300CD850D /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87DA4866275A6C2300CD850D /* libGLEW.a */; };
+		87DA486B275B833800CD850D /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87DA4869275B833800CD850D /* Renderer.cpp */; };
+		87DA486E275B845300CD850D /* VertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87DA486C275B845300CD850D /* VertexBuffer.cpp */; };
+		87DA4871275B866F00CD850D /* IndexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87DA486F275B866F00CD850D /* IndexBuffer.cpp */; };
+		87DA4874275B8E8900CD850D /* VertexArrayObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87DA4872275B8E8900CD850D /* VertexArrayObject.cpp */; };
+		87DA4877275B8F6600CD850D /* VertexBufferLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87DA4875275B8F6600CD850D /* VertexBufferLayout.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,6 +45,16 @@
 		87DA4865275A6C1800CD850D /* GLEW */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GLEW; sourceTree = "<group>"; };
 		87DA4866275A6C2300CD850D /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = Libs/libGLEW.a; sourceTree = "<group>"; };
 		87DA4868275B377700CD850D /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
+		87DA4869275B833800CD850D /* Renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
+		87DA486A275B833800CD850D /* Renderer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Renderer.hpp; sourceTree = "<group>"; };
+		87DA486C275B845300CD850D /* VertexBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VertexBuffer.cpp; sourceTree = "<group>"; };
+		87DA486D275B845300CD850D /* VertexBuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexBuffer.hpp; sourceTree = "<group>"; };
+		87DA486F275B866F00CD850D /* IndexBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IndexBuffer.cpp; sourceTree = "<group>"; };
+		87DA4870275B866F00CD850D /* IndexBuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IndexBuffer.hpp; sourceTree = "<group>"; };
+		87DA4872275B8E8900CD850D /* VertexArrayObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VertexArrayObject.cpp; sourceTree = "<group>"; };
+		87DA4873275B8E8900CD850D /* VertexArrayObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexArrayObject.hpp; sourceTree = "<group>"; };
+		87DA4875275B8F6600CD850D /* VertexBufferLayout.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VertexBufferLayout.cpp; sourceTree = "<group>"; };
+		87DA4876275B8F6600CD850D /* VertexBufferLayout.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexBufferLayout.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +98,16 @@
 			isa = PBXGroup;
 			children = (
 				87DA4844275A5CFD00CD850D /* main.cpp */,
+				87DA4869275B833800CD850D /* Renderer.cpp */,
+				87DA486A275B833800CD850D /* Renderer.hpp */,
+				87DA486C275B845300CD850D /* VertexBuffer.cpp */,
+				87DA486D275B845300CD850D /* VertexBuffer.hpp */,
+				87DA486F275B866F00CD850D /* IndexBuffer.cpp */,
+				87DA4870275B866F00CD850D /* IndexBuffer.hpp */,
+				87DA4872275B8E8900CD850D /* VertexArrayObject.cpp */,
+				87DA4873275B8E8900CD850D /* VertexArrayObject.hpp */,
+				87DA4875275B8F6600CD850D /* VertexBufferLayout.cpp */,
+				87DA4876275B8F6600CD850D /* VertexBufferLayout.hpp */,
 			);
 			path = gll;
 			sourceTree = "<group>";
@@ -173,7 +198,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87DA486B275B833800CD850D /* Renderer.cpp in Sources */,
+				87DA4877275B8F6600CD850D /* VertexBufferLayout.cpp in Sources */,
 				87DA4845275A5CFD00CD850D /* main.cpp in Sources */,
+				87DA4874275B8E8900CD850D /* VertexArrayObject.cpp in Sources */,
+				87DA4871275B866F00CD850D /* IndexBuffer.cpp in Sources */,
+				87DA486E275B845300CD850D /* VertexBuffer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

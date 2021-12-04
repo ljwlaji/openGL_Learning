@@ -6,24 +6,12 @@
 //
 
 #include <iostream>
-#include <../includes/GLEW/glew.h>
+#include "Renderer.hpp"
 #include <../includes/GLFW/glfw3.h>
 
-static void GLClearError()
-{
-    while (glGetError() != GL_NO_ERROR)
-    {
-        
-    };
-}
-
-static void GLCheckError()
-{
-    while (GLenum err = glGetError()) {
-        std::cout << "[GLError]: " << err << std::endl;
-    }
-}
-
+#include "IndexBuffer.hpp"
+#include "VertexBuffer.hpp"
+#include "VertexArrayObject.hpp"
 static unsigned int CompileShader(unsigned int type, const std::string& source)
 {
     unsigned int id = glCreateShader(type);
@@ -114,37 +102,15 @@ int main(int argc, const char * argv[]) {
         2, 0, 3
     };
     
-
-    //glGenBuffers(1, &buffer); //number of buffers, return an id of buffer which written in the povide uint pointer
-    //设置vertex array object
-    //这个东西好像没有指定任何与之关联的数组或vertex 但是又不能不写 就离谱
-    //难道这个是管理下面VBO和EBO的前提?
-    unsigned int VAO;
-    glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
     
-    //设置vertex buffer object
-    unsigned int VBO;
-    glGenBuffers(1, &VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, 2 * 4 * sizeof(float), positions, GL_STATIC_DRAW);
-    //size 每组vertex长度 这边位置信息始2个float组成一个vertex 所以是2
-    //type 单个数据的类型
-    //normal 是否需要让数据归一化 bool
-    //stride 每组vertex数据的步长 bit为单位 这边为2个float的长度 8
-    //pointer pos/tex_cord/color 指代起始位置
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (const void*)0);
-    glEnableVertexAttribArray(0);
-
-    //https://www.youtube.com/watch?v=0p9VxImr7Y0&list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2&index=4 18:00 glBindBuffer
+    VertexBuffer vb(positions, 4 * 2 * sizeof(float));
     
+    IndexBuffer ib(indices, 6);
 
-    unsigned int EBO;
-    glGenBuffers(1, &EBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-
+    VertexArrayObject VAO;
+    VertexBufferLayout layout;
+    layout.push<float>(2);
+    VAO.AddBuffer(vb, layout);
     
     std::string vs = "#version 330 core\n"
                      "\n"
@@ -173,6 +139,11 @@ int main(int argc, const char * argv[]) {
     float r = 0.0f;
     float inc = 0.01f;
     
+    glBindVertexArray(0);
+    glUseProgram(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    
     while (!glfwWindowShouldClose(window))
     {
         // Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
@@ -183,23 +154,24 @@ int main(int argc, const char * argv[]) {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         
-        GLClearError();
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
-        GLCheckError();
-        glUniform4f(location, r, 0.2f, 0.2f, 1.0f);
+        GLCall(glUseProgram(program));
+        GLCall(glUniform4f(location, r, 0.2f, 0.2f, 1.0f));
+        
+        VAO.Bind();
+        ib.BInd();
+        GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+        
         if (r > 1.0f)
             inc = -0.01f;
         else if (r < 0.0f)
             inc = 0.01f;
-        
         r += inc;
+        
         // Swap the screen buffers
         glfwSwapBuffers(window);
     }
     
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteVertexArrays(1, &VBO);
-    glDeleteProgram(program);
+    GLCall(glDeleteProgram(program));
     glfwTerminate();
     return 0;
 }
