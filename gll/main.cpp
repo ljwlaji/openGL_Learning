@@ -9,14 +9,67 @@
 #include <../includes/GLEW/glew.h>
 #include <../includes/GLFW/glfw3.h>
 
+static unsigned int CompileShader(unsigned int type, const std::string& source)
+{
+    unsigned int id = glCreateShader(type);
+    const char* src = source.c_str();
+    // id glCreateShader的句柄 Specifies the handle of the shader object whose source code is to be replaced.
+    // count 这边传入的src是一个 char** 类型的数组指针，我们在这边需要指定这个数组内有多少个char*指针 这边只有一个 所以传入1 Specifies the number of elements in the string and length arrays.
+    // char**指针的地址 Specifies an array of pointers to strings containing the source code to be loaded into the shader.
+    // length 这边char**指针内的char*数量大于1的话可以在这版传入一个数组，这个数组包含每个char*的长度 Specifies an array of string lengths.
+    glShaderSource(id, 1, &src, nullptr);
+    glCompileShader(id);
+    
+    int result;
+    glGetShaderiv(id, GL_COMPILE_STATUS, &result);
+    if (!result)
+    {
+        //some thing wrong
+        int lenth;
+        glGetShaderiv(id, GL_INFO_LOG_LENGTH, &lenth);
+        char* message = (char*)alloca(lenth * sizeof(char));
+        glGetShaderInfoLog(id, lenth, &lenth, message);
+        std::cout << "Shader Compile" << (type == GL_FRAGMENT_SHADER ? "Fragment" : "Vertex") << "Failed" << std::endl;
+        std::cout << message << std::endl;
+        glDeleteShader(id);
+        return 0;
+    }
+    return id;
+}
+
+static unsigned int CreateShaderProgram(const std::string& vertexShader, const std::string& fragmentShader)
+{
+    unsigned int program = glCreateProgram();
+    unsigned int vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
+    unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
+    
+    glAttachShader(program, vs);
+    glAttachShader(program, fs);
+    
+    glLinkProgram(program);
+    
+    glValidateProgram(program);
+    
+    glDeleteShader(vs);
+    glDeleteShader(fs);
+    return program;
+}
+
 int main(int argc, const char * argv[]) {
     // insert code here...
     
     if (!glfwInit())
         return 0;
     
-    glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
-    glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+//    glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
+//    glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  #ifdef __APPLE__
+    std::cout << "I'm apple machine" << std::endl;
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+  #endif
     GLFWwindow* window = glfwCreateWindow(640, 480, "Wave Simulation", NULL, NULL);
     if (!window)
     {
@@ -37,9 +90,17 @@ int main(int argc, const char * argv[]) {
          0.0,  0.5,
          0.5, -0.5
     };
-    unsigned int buffer;
-    glGenBuffers(1, &buffer); //number of buffers, return an id of buffer which written in the povide uint pointer
-    glBindBuffer(GL_ARRAY_BUFFER, buffer);
+    
+    //这边设置定点缓冲区对象和定点数组对象
+    unsigned int VBO, VAO;
+    
+    //glGenBuffers(1, &buffer); //number of buffers, return an id of buffer which written in the povide uint pointer
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    
+    glGenVertexArrays(1, &VAO);
+    glBindVertexArray(VAO);
+    
     //https://www.youtube.com/watch?v=0p9VxImr7Y0&list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2&index=4 18:00 glBindBuffer
     glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW);
     
@@ -51,6 +112,24 @@ int main(int argc, const char * argv[]) {
     //pointer pos/tex_cord/color 指代起始位置
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (const void*)0);
     
+    std::string vs = "#version 330 core\n"
+                     "\n"
+                     "layout(location = 0) in vec4 position;\n"
+                     "void main()\n"
+                     "{\n"
+                     "  gl_Position = position;\n"
+                     "}\n";
+    
+    std::string fs = "#version 330 core\n"
+                     "\n"
+                     "layout(location = 0) out vec4 color;\n"
+                     "void main()\n"
+                     "{\n"
+                     "  color = vec4(1.0, 0.0, 0.0, 1.0);\n"
+                     "}\n";
+
+    unsigned int program = CreateShaderProgram(vs, fs);
+    glUseProgram(program);
     
     
     while (!glfwWindowShouldClose(window))
@@ -62,6 +141,8 @@ int main(int argc, const char * argv[]) {
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+    
+    glDeleteProgram(program);
     glfwTerminate();
     return 0;
 }
