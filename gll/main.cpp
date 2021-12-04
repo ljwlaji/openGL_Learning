@@ -9,6 +9,21 @@
 #include <../includes/GLEW/glew.h>
 #include <../includes/GLFW/glfw3.h>
 
+static void GLClearError()
+{
+    while (glGetError() != GL_NO_ERROR)
+    {
+        
+    };
+}
+
+static void GLCheckError()
+{
+    while (GLenum err = glGetError()) {
+        std::cout << "[GLError]: " << err << std::endl;
+    }
+}
+
 static unsigned int CompileShader(unsigned int type, const std::string& source)
 {
     unsigned int id = glCreateShader(type);
@@ -160,9 +175,11 @@ int main(int argc, const char * argv[]) {
         // Clear the colorbuffer
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
+        
+        GLClearError();
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+        GLCheckError();
+        
         // Swap the screen buffers
         glfwSwapBuffers(window);
     }
