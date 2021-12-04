@@ -157,13 +157,18 @@ int main(int argc, const char * argv[]) {
     std::string fs = "#version 330 core\n"
                      "\n"
                      "layout(location = 0) out vec4 color;\n"
+                     "uniform vec4 u_Color;\n"
                      "void main()\n"
                      "{\n"
-                     "  color = vec4(1.0, 0.3, 0.5, 1.0);\n"
+                     "  color = u_Color;\n"
                      "}\n";
 
     unsigned int program = CreateShaderProgram(vs, fs);
     glUseProgram(program);
+    
+    int location = glGetUniformLocation(program, "u_Color");
+    assert(location != -1);
+    glUniform4f(location, 1.0f, 0.2f, 0.2f, 1.0f);
     
     
     while (!glfwWindowShouldClose(window))
