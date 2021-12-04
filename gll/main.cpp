@@ -100,10 +100,10 @@ int main(int argc, const char * argv[]) {
 
     //glGenBuffers(1, &buffer); //number of buffers, return an id of buffer which written in the povide uint pointer
     //设置vertex array object
+    //这个东西好像没有指定任何与之关联的数组或vertex 但是又不能不写 就离谱
+    //难道这个是管理下面VBO和EBO的前提?
     unsigned int VAO;
     glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VAO);
     glBindVertexArray(VAO);
     
     //设置vertex buffer object
