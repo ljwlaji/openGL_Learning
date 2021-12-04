@@ -86,31 +86,50 @@ int main(int argc, const char * argv[]) {
     std::cout << "GL_Version : " << glGetString(GL_VERSION) << std::endl;
     
     float positions[] = {
-        -0.5, -0.5,
-         0.0,  0.5,
-         0.5, -0.5
+        -0.5, -0.5, //0
+         0.5, -0.5, //1
+         0.5,  0.5,
+        -0.5,  0.5
     };
     
-    //这边设置定点缓冲区对象和定点数组对象
-    unsigned int VBO, VAO;
+    unsigned int indices[] = {
+        0, 1, 2,
+        2, 0, 3
+    };
     
+
     //glGenBuffers(1, &buffer); //number of buffers, return an id of buffer which written in the povide uint pointer
-    glGenBuffers(1, &VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    
+    //设置vertex array object
+    unsigned int VAO;
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VAO);
+    glBindVertexArray(VAO);
+    
+    //设置vertex buffer object
+    unsigned int VBO;
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, 2 * 6 * sizeof(float), positions, GL_STATIC_DRAW);
     
     //https://www.youtube.com/watch?v=0p9VxImr7Y0&list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2&index=4 18:00 glBindBuffer
-    glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW);
     
-    glEnableVertexAttribArray(0);
+
+    unsigned int EBO;
+    glGenBuffers(1, &EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    
     //size 每组vertex长度 这边位置信息始2个float组成一个vertex 所以是2
     //type 单个数据的类型
     //normal 是否需要让数据归一化 bool
     //stride 每组vertex数据的步长 bit为单位 这边为2个float的长度 8
     //pointer pos/tex_cord/color 指代起始位置
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (const void*)0);
+    glEnableVertexAttribArray(0);
+
+
+
     
     std::string vs = "#version 330 core\n"
                      "\n"
@@ -125,7 +144,7 @@ int main(int argc, const char * argv[]) {
                      "layout(location = 0) out vec4 color;\n"
                      "void main()\n"
                      "{\n"
-                     "  color = vec4(1.0, 0.0, 0.0, 1.0);\n"
+                     "  color = vec4(1.0, 0.3, 0.5, 1.0);\n"
                      "}\n";
 
     unsigned int program = CreateShaderProgram(vs, fs);
@@ -134,14 +153,22 @@ int main(int argc, const char * argv[]) {
     
     while (!glfwWindowShouldClose(window))
     {
+        // Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
+        glfwPollEvents();
+
+        // Render
+        // Clear the colorbuffer
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
+        // Swap the screen buffers
         glfwSwapBuffers(window);
-        glfwPollEvents();
     }
     
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteVertexArrays(1, &VBO);
     glDeleteProgram(program);
     glfwTerminate();
     return 0;

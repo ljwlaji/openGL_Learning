@@ -39,6 +39,7 @@
 		87DA4863275A640300CD850D /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		87DA4865275A6C1800CD850D /* GLEW */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GLEW; sourceTree = "<group>"; };
 		87DA4866275A6C2300CD850D /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = Libs/libGLEW.a; sourceTree = "<group>"; };
+		87DA4868275B377700CD850D /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +62,7 @@
 		87DA4838275A5CFD00CD850D = {
 			isa = PBXGroup;
 			children = (
+				87DA4868275B377700CD850D /* res */,
 				87DA484E275A5D6100CD850D /* includes */,
 				87DA484B275A5D1600CD850D /* Libs */,
 				87DA4843275A5CFD00CD850D /* gll */,
