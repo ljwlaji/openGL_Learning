@@ -94,6 +94,8 @@ int main(int argc, const char * argv[]) {
     
     glfwMakeContextCurrent(window);
     
+    
+    glfwSwapInterval(1);
     //这个操作必须在makeContextCurrent 之后
     if (glewInit() != GLEW_OK)
         return 0;
@@ -168,8 +170,10 @@ int main(int argc, const char * argv[]) {
     
     int location = glGetUniformLocation(program, "u_Color");
     assert(location != -1);
-    glUniform4f(location, 1.0f, 0.2f, 0.2f, 1.0f);
+//    glUniform4f(location, 1.0f, 0.2f, 0.2f, 1.0f);
     
+    float r = 0.0f;
+    float inc = 0.01f;
     
     while (!glfwWindowShouldClose(window))
     {
@@ -184,7 +188,13 @@ int main(int argc, const char * argv[]) {
         GLClearError();
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
         GLCheckError();
+        glUniform4f(location, r, 0.2f, 0.2f, 1.0f);
+        if (r > 1.0f)
+            inc = -0.01f;
+        else if (r < 0.0f)
+            inc = 0.01f;
         
+        r += inc;
         // Swap the screen buffers
         glfwSwapBuffers(window);
     }
