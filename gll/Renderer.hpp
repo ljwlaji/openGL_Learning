@@ -30,7 +30,7 @@ public:
     Renderer() {};
     ~Renderer() {};
     
-    
+    void clear();
     void Draw(const VertexArrayObject& vb, const IndexBuffer& ib);
 };
     
