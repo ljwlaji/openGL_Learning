@@ -11,6 +11,10 @@
 #include <stdio.h>
 #include <../includes/GLEW/glew.h>
 
+class VertexBuffer;
+class IndexBuffer;
+class VertexArrayObject;
+
 #define ASSERT(x) if (!(x)) assert(false);
 #define GLCall(x) GLClearError();\
     x;\
@@ -23,8 +27,11 @@ class Renderer {
 private:
     
 public:
-    Renderer();
-    ~Renderer();
+    Renderer() {};
+    ~Renderer() {};
+    
+    
+    void Draw(const VertexArrayObject& vb, const IndexBuffer& ib);
 };
     
 

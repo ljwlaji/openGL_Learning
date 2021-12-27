@@ -6,6 +6,9 @@
 //
 
 #include "Renderer.hpp"
+#include "VertexBuffer.hpp"
+#include "IndexBuffer.hpp"
+#include "VertexArrayObject.hpp"
 #include <iostream>
 
 void GLClearError()
@@ -22,3 +25,9 @@ bool GLCheckError(const char* funcName, const char* file, int line)
     return true;
 }
 
+void Renderer::Draw(const VertexArrayObject& vb, const IndexBuffer& ib)
+{
+    vb.Bind();
+    ib.BInd();
+    GLCall(glDrawElements(GL_TRIANGLES, ib.getCount(), GL_UNSIGNED_INT, nullptr));
+}

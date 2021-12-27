@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		87B73B402769B54A00CCE326 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87B73B3E2769B54A00CCE326 /* Shader.cpp */; };
 		87DA4845275A5CFD00CD850D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87DA4844275A5CFD00CD850D /* main.cpp */; };
 		87DA4854275A5F2D00CD850D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87DA4853275A5F2D00CD850D /* OpenGL.framework */; };
 		87DA485E275A61DA00CD850D /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87DA485D275A61DA00CD850D /* libglfw3.a */; };
@@ -34,6 +35,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		87B73B3E2769B54A00CCE326 /* Shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
+		87B73B3F2769B54A00CCE326 /* Shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
 		87DA4841275A5CFD00CD850D /* gll */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = gll; sourceTree = BUILT_PRODUCTS_DIR; };
 		87DA4844275A5CFD00CD850D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		87DA484F275A5D7100CD850D /* GLFW */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GLFW; sourceTree = "<group>"; };
@@ -108,6 +111,8 @@
 				87DA4873275B8E8900CD850D /* VertexArrayObject.hpp */,
 				87DA4875275B8F6600CD850D /* VertexBufferLayout.cpp */,
 				87DA4876275B8F6600CD850D /* VertexBufferLayout.hpp */,
+				87B73B3E2769B54A00CCE326 /* Shader.cpp */,
+				87B73B3F2769B54A00CCE326 /* Shader.hpp */,
 			);
 			path = gll;
 			sourceTree = "<group>";
@@ -202,6 +207,7 @@
 				87DA4877275B8F6600CD850D /* VertexBufferLayout.cpp in Sources */,
 				87DA4845275A5CFD00CD850D /* main.cpp in Sources */,
 				87DA4874275B8E8900CD850D /* VertexArrayObject.cpp in Sources */,
+				87B73B402769B54A00CCE326 /* Shader.cpp in Sources */,
 				87DA4871275B866F00CD850D /* IndexBuffer.cpp in Sources */,
 				87DA486E275B845300CD850D /* VertexBuffer.cpp in Sources */,
 			);
