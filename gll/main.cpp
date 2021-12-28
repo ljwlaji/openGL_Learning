@@ -14,6 +14,8 @@
 #include "VertexArrayObject.hpp"
 #include "Renderer.hpp"
 #include "Shader.hpp"
+#include "Texture2D.hpp"
+
 
 int main(int argc, const char * argv[]) {
     // insert code here...
@@ -48,10 +50,10 @@ int main(int argc, const char * argv[]) {
     std::cout << "GL_Version : " << glGetString(GL_VERSION) << std::endl;
     
     float positions[] = {
-        -0.5, -0.5, //0
-         0.5, -0.5, //1
-         0.5,  0.5,
-        -0.5,  0.5
+        -0.5, -0.5, 0.0f, 0.0f, //0
+         0.5, -0.5, 1.0f, 0.0f,//1
+         0.5,  0.5, 1.0f, 1.0f,
+        -0.5,  0.5, 0.0f, 1.0f,
     };
     
     unsigned int indices[] = {
@@ -59,8 +61,9 @@ int main(int argc, const char * argv[]) {
         2, 0, 3
     };
     
-    
-    VertexBuffer vb(positions, 4 * 2 * sizeof(float));
+    GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+    GLCall(glEnable(GL_BLEND));
+    VertexBuffer vb(positions, 4 * 4  * sizeof(float));
     
     IndexBuffer ib(indices, 6);
     
@@ -69,10 +72,12 @@ int main(int argc, const char * argv[]) {
     VertexArrayObject VAO;
     VertexBufferLayout layout;
     layout.push<float>(2);
+    layout.push<float>(2);
     VAO.AddBuffer(vb, layout);
-    
     Shader* shader = Shader::Create("res/shaders/vertex.shader", "res/shaders/fragment.shader");
-    
+    Texture2D texture("res/test.png");
+    texture.Bind();
+    shader->setUniform1i("u_Texture2D", 0);
     shader->Bind();
     shader->setUniform4f("u_Color", 1.0f, 0.2f, 0.2f, 1.0f);
     

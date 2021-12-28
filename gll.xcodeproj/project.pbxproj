@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		876DC49C277AD0C00020AD9B /* Texture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 876DC49A277AD0C00020AD9B /* Texture2D.cpp */; };
+		876DC49F277AD1960020AD9B /* stbImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 876DC49D277AD1960020AD9B /* stbImage.cpp */; };
 		87B73B402769B54A00CCE326 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87B73B3E2769B54A00CCE326 /* Shader.cpp */; };
 		87DA4845275A5CFD00CD850D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87DA4844275A5CFD00CD850D /* main.cpp */; };
 		87DA4854275A5F2D00CD850D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87DA4853275A5F2D00CD850D /* OpenGL.framework */; };
@@ -35,6 +37,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		876DC49A277AD0C00020AD9B /* Texture2D.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Texture2D.cpp; sourceTree = "<group>"; };
+		876DC49B277AD0C00020AD9B /* Texture2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Texture2D.hpp; sourceTree = "<group>"; };
+		876DC49D277AD1960020AD9B /* stbImage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stbImage.cpp; sourceTree = "<group>"; };
+		876DC49E277AD1960020AD9B /* stbImage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = stbImage.hpp; sourceTree = "<group>"; };
 		87B73B3E2769B54A00CCE326 /* Shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
 		87B73B3F2769B54A00CCE326 /* Shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
 		87DA4841275A5CFD00CD850D /* gll */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = gll; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +119,10 @@
 				87DA4876275B8F6600CD850D /* VertexBufferLayout.hpp */,
 				87B73B3E2769B54A00CCE326 /* Shader.cpp */,
 				87B73B3F2769B54A00CCE326 /* Shader.hpp */,
+				876DC49A277AD0C00020AD9B /* Texture2D.cpp */,
+				876DC49B277AD0C00020AD9B /* Texture2D.hpp */,
+				876DC49D277AD1960020AD9B /* stbImage.cpp */,
+				876DC49E277AD1960020AD9B /* stbImage.hpp */,
 			);
 			path = gll;
 			sourceTree = "<group>";
@@ -208,8 +218,10 @@
 				87DA4845275A5CFD00CD850D /* main.cpp in Sources */,
 				87DA4874275B8E8900CD850D /* VertexArrayObject.cpp in Sources */,
 				87B73B402769B54A00CCE326 /* Shader.cpp in Sources */,
+				876DC49C277AD0C00020AD9B /* Texture2D.cpp in Sources */,
 				87DA4871275B866F00CD850D /* IndexBuffer.cpp in Sources */,
 				87DA486E275B845300CD850D /* VertexBuffer.cpp in Sources */,
+				876DC49F277AD1960020AD9B /* stbImage.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

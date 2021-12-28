@@ -18,10 +18,15 @@ public:
     ~Shader();
     
     void Bind();
+    
+    bool setUniform1i(const char* name, const int& input);
+    
+    
     bool setUniform1f(const char* name, const float& input);
     bool setUniform2f(const char* name, const float& inputa, const float& inputb);
     bool setUniform3f(const char* name, const float& inputa, const float& inputb, const float& inputc);
     bool setUniform4f(const char* name, const float& inputa, const float& inputb, const float& inputc, const float& inputd);
+    
 private:
     unsigned int CompileShader(unsigned int type, const char* source);
     bool CreateShaderProgram(const char* vertexShader, const char* fragmentShader);

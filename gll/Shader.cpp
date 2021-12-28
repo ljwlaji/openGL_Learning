@@ -108,6 +108,15 @@ bool Shader::CreateShaderProgram(const char* vertexShader, const char* fragmentS
     return true;
 }
 
+bool Shader::setUniform1i(const char* name, const int& input)
+{
+    int location = glGetUniformLocation(m_GLShaderProgram, name);
+    if (location == -1)
+        return false;
+    GLCall(glUniform1i(location, input));
+    return true;
+}
+
 bool Shader::setUniform1f(const char* name, const float& input)
 {
     int location = glGetUniformLocation(m_GLShaderProgram, name);
