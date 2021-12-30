@@ -41,6 +41,7 @@
 		876DC49B277AD0C00020AD9B /* Texture2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Texture2D.hpp; sourceTree = "<group>"; };
 		876DC49D277AD1960020AD9B /* stbImage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stbImage.cpp; sourceTree = "<group>"; };
 		876DC49E277AD1960020AD9B /* stbImage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = stbImage.hpp; sourceTree = "<group>"; };
+		87A3DB05277D79510067C9F7 /* glm */ = {isa = PBXFileReference; lastKnownFileType = folder; path = glm; sourceTree = "<group>"; };
 		87B73B3E2769B54A00CCE326 /* Shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
 		87B73B3F2769B54A00CCE326 /* Shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
 		87DA4841275A5CFD00CD850D /* gll */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = gll; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,6 +138,7 @@
 		87DA484E275A5D6100CD850D /* includes */ = {
 			isa = PBXGroup;
 			children = (
+				87A3DB05277D79510067C9F7 /* glm */,
 				87DA4865275A6C1800CD850D /* GLEW */,
 				87DA484F275A5D7100CD850D /* GLFW */,
 			);

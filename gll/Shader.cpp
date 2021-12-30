@@ -152,3 +152,12 @@ bool Shader::setUniform4f(const char* name, const float& inputa, const float& in
     GLCall(glUniform4f(location, inputa, inputb, inputc, inputd));
     return true;
 }
+
+bool Shader::setUniformMat4f(const char* name, const glm::mat4& martix)
+{
+    int location = glGetUniformLocation(m_GLShaderProgram, name);
+    if (location == -1)
+        return false;
+    GLCall(glUniformMatrix4fv(location, 1, GL_FALSE, &martix[0][0]));
+    return true;
+}

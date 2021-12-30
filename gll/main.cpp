@@ -16,6 +16,9 @@
 #include "Shader.hpp"
 #include "Texture2D.hpp"
 
+#include <../includes/glm/glm.hpp>
+#include <../includes/glm/gtc/matrix_transform.hpp>
+
 
 int main(int argc, const char * argv[]) {
     // insert code here...
@@ -41,6 +44,8 @@ int main(int argc, const char * argv[]) {
     
     glfwMakeContextCurrent(window);
     
+    const float displayWidth = 640.0f;
+    const float displayHeight = 480.0f;
     
     glfwSwapInterval(1);
     //这个操作必须在makeContextCurrent 之后
@@ -50,22 +55,28 @@ int main(int argc, const char * argv[]) {
     std::cout << "GL_Version : " << glGetString(GL_VERSION) << std::endl;
     
     float positions[] = {
-        -0.5, -0.5, 0.0f, 0.0f, //0
-         0.5, -0.5, 1.0f, 0.0f,//1
-         0.5,  0.5, 1.0f, 1.0f,
-        -0.5,  0.5, 0.0f, 1.0f,
+        0.0,    0.0,    0.0f, 0.0f, //0
+        80.0f,  0.0,    1.0f, 0.0f, //1
+        80.0f,  80.0f,  1.0f, 1.0f,
+        0.0,    80.0f,  0.0f, 1.0f,
+        100.0f,     100.0f,  0.0f, 0.0f, //0
+        180.0f,     100.0f,  1.0f, 0.0f, //1
+        180.0f,     180.0f,  1.0f, 1.0f,
+        100.0f,     180.0f,  0.0f, 1.0f,
     };
     
     unsigned int indices[] = {
         0, 1, 2,
-        2, 0, 3
+        2, 0, 3,
+        4, 5, 6,
+        6, 4, 7
     };
     
     GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
     GLCall(glEnable(GL_BLEND));
-    VertexBuffer vb(positions, 4 * 4  * sizeof(float));
+    VertexBuffer vb(positions, 8 * 4 * sizeof(float));
     
-    IndexBuffer ib(indices, 6);
+    IndexBuffer ib(indices, 12);
     
     Renderer renderer;
 
@@ -80,6 +91,14 @@ int main(int argc, const char * argv[]) {
     shader->setUniform1i("u_Texture2D", 0);
     shader->Bind();
     shader->setUniform4f("u_Color", 1.0f, 0.2f, 0.2f, 1.0f);
+    glm::mat4 proj = glm::ortho(0.0f, displayWidth, 0.0f, displayHeight, -1.0f, 1.0f); // for translate screen pixals to glPosition
+    glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(-100.0f, 100.0f, 0.0f)); // for camera Position
+    
+    glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(200.0f, -100.0f, 0.0f)); // for model Position
+    
+    
+    glm::mat4 mvp = proj * view * model;
+    shader->setUniformMat4f("u_MVP", mvp);
     
     float r = 0.0f;
     float inc = 0.01f;
@@ -100,6 +119,7 @@ int main(int argc, const char * argv[]) {
         
         shader->Bind();
         shader->setUniform4f("u_Color", r, 0.2f, 0.2f, 1.0f);
+        
             
         renderer.Draw(VAO, ib);
         

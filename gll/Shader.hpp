@@ -9,6 +9,7 @@
 #define Shader_hpp
 
 #include <stdio.h>
+#include <../includes/glm/glm.hpp>
 
 class Shader
 {
@@ -26,7 +27,7 @@ public:
     bool setUniform2f(const char* name, const float& inputa, const float& inputb);
     bool setUniform3f(const char* name, const float& inputa, const float& inputb, const float& inputc);
     bool setUniform4f(const char* name, const float& inputa, const float& inputb, const float& inputc, const float& inputd);
-    
+    bool setUniformMat4f(const char* name, const glm::mat4& martix);
 private:
     unsigned int CompileShader(unsigned int type, const char* source);
     bool CreateShaderProgram(const char* vertexShader, const char* fragmentShader);
