@@ -19,7 +19,7 @@ void GLClearError()
 bool GLCheckError(const char* funcName, const char* file, int line)
 {
     while (GLenum err = glGetError()) {
-        std::cout << "[GLError]: " << file << " in line:" << line << " @function:" << funcName << err << std::endl;
+        std::cout << "[GLError]: " << file << " in line:" << line << " @function:" << funcName << "error : " << err << std::endl;
         return false;
     }
     return true;
@@ -28,12 +28,12 @@ bool GLCheckError(const char* funcName, const char* file, int line)
 void Renderer::Draw(const VertexArrayObject& vb, const IndexBuffer& ib)
 {
     vb.Bind();
-    ib.BInd();
+    ib.Bind();
     GLCall(glDrawElements(GL_TRIANGLES, ib.getCount(), GL_UNSIGNED_INT, nullptr));
 }
 
 void Renderer::clear()
 {
-    GLCall(glClearColor(0.2f, 0.3f, 0.3f, 1.0f));
+    GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
     GLCall(glClear(GL_COLOR_BUFFER_BIT));
 }

@@ -10,5 +10,5 @@ in vec2 v_TexCord;
 void main()
 {
   vec4 finalColor = texture(u_Texture, v_TexCord);
-  color = finalColor;
+  color = finalColor * u_Color;
 }

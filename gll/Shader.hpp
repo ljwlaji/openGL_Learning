@@ -10,14 +10,15 @@
 
 #include <stdio.h>
 #include <../includes/glm/glm.hpp>
-
-class Shader
+#include "Ref.hpp"
+class Shader : public Ref
 {
 public:
     static Shader* Create(const char* vp, const char* fp);
     Shader();
     ~Shader();
     
+    unsigned int getRandererID() const { return m_GLShaderProgram; }
     void Bind();
     
     bool setUniform1i(const char* name, const int& input);

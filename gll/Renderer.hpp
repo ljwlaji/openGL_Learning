@@ -9,6 +9,7 @@
 #define Renderer_hpp
 
 #include <stdio.h>
+#include <vector>
 #include <../includes/GLEW/glew.h>
 
 class VertexBuffer;
@@ -24,14 +25,16 @@ void GLClearError();
 bool GLCheckError(const char* funcName, const char* file, int line);
 
 class Renderer {
-private:
-    
 public:
     Renderer() {};
     ~Renderer() {};
     
     void clear();
     void Draw(const VertexArrayObject& vb, const IndexBuffer& ib);
+    
+    
+private:
+    
 };
     
 

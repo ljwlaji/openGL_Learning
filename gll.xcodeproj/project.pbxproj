@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		876DC49C277AD0C00020AD9B /* Texture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 876DC49A277AD0C00020AD9B /* Texture2D.cpp */; };
 		876DC49F277AD1960020AD9B /* stbImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 876DC49D277AD1960020AD9B /* stbImage.cpp */; };
+		87A3DB08278491FA0067C9F7 /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87A3DB06278491FA0067C9F7 /* Node.cpp */; };
+		87A3DB0B278495E10067C9F7 /* Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87A3DB09278495E10067C9F7 /* Sprite.cpp */; };
+		87A3DB0E27887C350067C9F7 /* Ref.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87A3DB0C27887C350067C9F7 /* Ref.cpp */; };
+		87A3DB1127889B8C0067C9F7 /* TextureCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87A3DB0F27889B8C0067C9F7 /* TextureCache.cpp */; };
 		87B73B402769B54A00CCE326 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87B73B3E2769B54A00CCE326 /* Shader.cpp */; };
 		87DA4845275A5CFD00CD850D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87DA4844275A5CFD00CD850D /* main.cpp */; };
 		87DA4854275A5F2D00CD850D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87DA4853275A5F2D00CD850D /* OpenGL.framework */; };
@@ -42,6 +46,14 @@
 		876DC49D277AD1960020AD9B /* stbImage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stbImage.cpp; sourceTree = "<group>"; };
 		876DC49E277AD1960020AD9B /* stbImage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = stbImage.hpp; sourceTree = "<group>"; };
 		87A3DB05277D79510067C9F7 /* glm */ = {isa = PBXFileReference; lastKnownFileType = folder; path = glm; sourceTree = "<group>"; };
+		87A3DB06278491FA0067C9F7 /* Node.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Node.cpp; sourceTree = "<group>"; };
+		87A3DB07278491FA0067C9F7 /* Node.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Node.hpp; sourceTree = "<group>"; };
+		87A3DB09278495E10067C9F7 /* Sprite.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sprite.cpp; sourceTree = "<group>"; };
+		87A3DB0A278495E10067C9F7 /* Sprite.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sprite.hpp; sourceTree = "<group>"; };
+		87A3DB0C27887C350067C9F7 /* Ref.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Ref.cpp; sourceTree = "<group>"; };
+		87A3DB0D27887C350067C9F7 /* Ref.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ref.hpp; sourceTree = "<group>"; };
+		87A3DB0F27889B8C0067C9F7 /* TextureCache.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextureCache.cpp; sourceTree = "<group>"; };
+		87A3DB1027889B8C0067C9F7 /* TextureCache.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextureCache.hpp; sourceTree = "<group>"; };
 		87B73B3E2769B54A00CCE326 /* Shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
 		87B73B3F2769B54A00CCE326 /* Shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
 		87DA4841275A5CFD00CD850D /* gll */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = gll; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,6 +136,14 @@
 				876DC49B277AD0C00020AD9B /* Texture2D.hpp */,
 				876DC49D277AD1960020AD9B /* stbImage.cpp */,
 				876DC49E277AD1960020AD9B /* stbImage.hpp */,
+				87A3DB06278491FA0067C9F7 /* Node.cpp */,
+				87A3DB07278491FA0067C9F7 /* Node.hpp */,
+				87A3DB09278495E10067C9F7 /* Sprite.cpp */,
+				87A3DB0A278495E10067C9F7 /* Sprite.hpp */,
+				87A3DB0C27887C350067C9F7 /* Ref.cpp */,
+				87A3DB0D27887C350067C9F7 /* Ref.hpp */,
+				87A3DB0F27889B8C0067C9F7 /* TextureCache.cpp */,
+				87A3DB1027889B8C0067C9F7 /* TextureCache.hpp */,
 			);
 			path = gll;
 			sourceTree = "<group>";
@@ -221,9 +241,13 @@
 				87DA4874275B8E8900CD850D /* VertexArrayObject.cpp in Sources */,
 				87B73B402769B54A00CCE326 /* Shader.cpp in Sources */,
 				876DC49C277AD0C00020AD9B /* Texture2D.cpp in Sources */,
+				87A3DB0B278495E10067C9F7 /* Sprite.cpp in Sources */,
+				87A3DB1127889B8C0067C9F7 /* TextureCache.cpp in Sources */,
 				87DA4871275B866F00CD850D /* IndexBuffer.cpp in Sources */,
 				87DA486E275B845300CD850D /* VertexBuffer.cpp in Sources */,
+				87A3DB0E27887C350067C9F7 /* Ref.cpp in Sources */,
 				876DC49F277AD1960020AD9B /* stbImage.cpp in Sources */,
+				87A3DB08278491FA0067C9F7 /* Node.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
