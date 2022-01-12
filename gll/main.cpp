@@ -6,21 +6,15 @@
 //
 
 #include <iostream>
-#include "Renderer.hpp"
-#include <../includes/GLFW/glfw3.h>
 #include <array>
 
 
-#include "IndexBuffer.hpp"
-#include "VertexBuffer.hpp"
-#include "VertexArrayObject.hpp"
 #include "Renderer.hpp"
 #include "Shader.hpp"
 #include "Texture2D.hpp"
 #include <list>
-#include <../includes/glm/glm.hpp>
-#include <../includes/glm/gtc/matrix_transform.hpp>
 #include "Sprite.hpp"
+#include "GLWindow.hpp"
 
 #define MAX_RECT_NUMBER 10000
 #define MAX_QUAD_COMMAND 40000
@@ -30,12 +24,7 @@ const float displayHeight = 480.0f;
 glm::mat4 proj = glm::ortho(0.0f, displayWidth, 0.0f, displayHeight, -1.0f, 1.0f);
 
 std::list<Sprite*> spriteList;
-typedef struct QuadCommand {
-    Vec2 Position; /*8bit*/
-    Vec2 UV; /*8bit*/
-} QuadCommand;
 QuadCommand command[MAX_QUAD_COMMAND];
-GLushort indices[MAX_INDEX_NUMBER];
 unsigned short offset = 0;
 unsigned int timeDiff = 0;
 unsigned int renderCount = 0;
@@ -151,64 +140,16 @@ void onUpdate(unsigned int diff)
 int main(int argc, const char * argv[]) {
     // insert code here...
     
-    if (!glfwInit())
-        return 0;
-    
-//    glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
-//    glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-  #ifdef __APPLE__
-    std::cout << "I'm apple machine" << std::endl;
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-  #endif
-    GLFWwindow* window = glfwCreateWindow(displayWidth, displayHeight, "Wave Simulation", NULL, NULL);
-    if (!window)
-    {
-        glfwTerminate();
-        return 0;
-    }
-    
-    glfwMakeContextCurrent(window);
-    
-    glfwSwapInterval(1);
-    //这个操作必须在makeContextCurrent 之后
-    if (glewInit() != GLEW_OK)
-        return 0;
-    GLint nrVertexAttrib;
-    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrVertexAttrib);
-    std::cout << "从系统支持的顶点属性最大为：" << nrVertexAttrib;
-    for (int i = 0, n = 0; i < MAX_INDEX_NUMBER; i += 6, n++)
-    {
-        indices[i]      = n * 4;
-        indices[i + 1]  = n * 4 + 1;
-        indices[i + 2]  = n * 4 + 2;
-        indices[i + 3]  = n * 4 + 2;
-        indices[i + 4]  = n * 4;
-        indices[i + 5]  = n * 4 + 3;
-    }
-    GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
-    GLCall(glEnable(GL_BLEND));
-    
-    // gen vertex buffer
-    unsigned int VB;
-    GLCall(glGenBuffers(1, &VB));
-    GLCall(glBindBuffer(GL_ARRAY_BUFFER, VB));
-    GLCall(glBufferData(GL_ARRAY_BUFFER, sizeof(QuadCommand) * MAX_QUAD_COMMAND, nullptr, GL_DYNAMIC_DRAW));
-    // end gen vertex buffer
-    
-    // gen vertex buffer object
-    unsigned int VAO;
-    glGenVertexArrays(1, &VAO);
-    
-    glBindVertexArray(VAO);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_TRUE, sizeof(QuadCommand), (const void*)offsetof(QuadCommand, Position));
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_TRUE, sizeof(QuadCommand), (const void*)offsetof(QuadCommand, UV));
+    GLWindow* GLwindow = new GLWindow();
+    GLwindow->create();
+    GLFWwindow* window = GLwindow->getWindow();
+    GLwindow->setupContext();
+
+    auto VAO = GLwindow->getVAO();
+    auto indices = GLwindow->getIndices();
     IndexBuffer ib(indices, MAX_INDEX_NUMBER);
     ib.Bind();
+    
     auto begin = std::chrono::high_resolution_clock::now();
     while (!glfwWindowShouldClose(window))
     {

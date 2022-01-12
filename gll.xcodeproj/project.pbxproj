@@ -14,6 +14,7 @@
 		87A3DB0E27887C350067C9F7 /* Ref.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87A3DB0C27887C350067C9F7 /* Ref.cpp */; };
 		87A3DB1127889B8C0067C9F7 /* TextureCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87A3DB0F27889B8C0067C9F7 /* TextureCache.cpp */; };
 		87B73B402769B54A00CCE326 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87B73B3E2769B54A00CCE326 /* Shader.cpp */; };
+		87D33F92278E9AC9003A2DA7 /* GLWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87D33F90278E9AC9003A2DA7 /* GLWindow.cpp */; };
 		87DA4845275A5CFD00CD850D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87DA4844275A5CFD00CD850D /* main.cpp */; };
 		87DA4854275A5F2D00CD850D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87DA4853275A5F2D00CD850D /* OpenGL.framework */; };
 		87DA485E275A61DA00CD850D /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87DA485D275A61DA00CD850D /* libglfw3.a */; };
@@ -56,6 +57,8 @@
 		87A3DB1027889B8C0067C9F7 /* TextureCache.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextureCache.hpp; sourceTree = "<group>"; };
 		87B73B3E2769B54A00CCE326 /* Shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
 		87B73B3F2769B54A00CCE326 /* Shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Shader.hpp; sourceTree = "<group>"; };
+		87D33F90278E9AC9003A2DA7 /* GLWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GLWindow.cpp; sourceTree = "<group>"; };
+		87D33F91278E9AC9003A2DA7 /* GLWindow.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GLWindow.hpp; sourceTree = "<group>"; };
 		87DA4841275A5CFD00CD850D /* gll */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = gll; sourceTree = BUILT_PRODUCTS_DIR; };
 		87DA4844275A5CFD00CD850D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		87DA484F275A5D7100CD850D /* GLFW */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GLFW; sourceTree = "<group>"; };
@@ -144,6 +147,8 @@
 				87A3DB0D27887C350067C9F7 /* Ref.hpp */,
 				87A3DB0F27889B8C0067C9F7 /* TextureCache.cpp */,
 				87A3DB1027889B8C0067C9F7 /* TextureCache.hpp */,
+				87D33F90278E9AC9003A2DA7 /* GLWindow.cpp */,
+				87D33F91278E9AC9003A2DA7 /* GLWindow.hpp */,
 			);
 			path = gll;
 			sourceTree = "<group>";
@@ -239,6 +244,7 @@
 				87DA4877275B8F6600CD850D /* VertexBufferLayout.cpp in Sources */,
 				87DA4845275A5CFD00CD850D /* main.cpp in Sources */,
 				87DA4874275B8E8900CD850D /* VertexArrayObject.cpp in Sources */,
+				87D33F92278E9AC9003A2DA7 /* GLWindow.cpp in Sources */,
 				87B73B402769B54A00CCE326 /* Shader.cpp in Sources */,
 				876DC49C277AD0C00020AD9B /* Texture2D.cpp in Sources */,
 				87A3DB0B278495E10067C9F7 /* Sprite.cpp in Sources */,
