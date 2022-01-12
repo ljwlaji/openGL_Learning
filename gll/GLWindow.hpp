@@ -48,7 +48,7 @@ class GLWindow {
 public:
     GLWindow() {}
     ~GLWindow() {}
-    void create()
+    void create(const std::string& name, float width, float height)
     {
         indices = new GLushort[MAX_INDEX_NUMBER];
         command = new QuadCommand[MAX_QUAD_COMMAND];
@@ -61,7 +61,7 @@ public:
             glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
         #endif
         m_proj = glm::ortho(0.0f, 640.0f, 0.0f, 480.0f, -1.0f, 1.0f);
-        GLFWwindow* window = glfwCreateWindow(640, 480, "Wave Simulation", NULL, NULL);
+        GLFWwindow* window = glfwCreateWindow(width, height, name.c_str(), NULL, NULL);
         if (!window)
         {
             glfwTerminate();
@@ -73,6 +73,7 @@ public:
 //        //这个操作必须在makeContextCurrent 之后
         if (glewInit() != GLEW_OK)
             return;
+        m_Stopped = false;
     }
     void setupContext()
     {
@@ -187,31 +188,35 @@ public:
         }
     }
     
-    void render()
+    bool render()
     {
+        if (m_Stopped)
+            return false;
         if (!glfwWindowShouldClose(m_Window))
         {
+            glfwPollEvents();
             GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
             GLCall(glClear(GL_COLOR_BUFFER_BIT));
             onUpdate();
             glfwSwapBuffers(m_Window);
         }
-        Sprite * spr = nullptr;
-        while (!m_SpriteList.empty())
+        else
         {
-            spr = (*m_SpriteList.begin());
-            m_SpriteList.pop_front();
-            delete spr;
+            glfwTerminate();
+            Sprite * spr = nullptr;
+            while (!m_SpriteList.empty())
+            {
+                spr = (*m_SpriteList.begin());
+                m_SpriteList.pop_front();
+                delete spr;
+            }
+            m_Stopped = true;
         }
-            
+        return true;
     }
     
     GLFWwindow* getWindow() const { return m_Window; }
     void setWindow(GLFWwindow* window) { m_Window = window; }
-    
-    GLushort* getIndices() const { return indices; }
-    
-    unsigned int getVAO() const { return m_VAO; }
     
 private:
     GLFWwindow* m_Window;
@@ -222,6 +227,7 @@ private:
     unsigned int m_EBO;
     std::list<Sprite*> m_SpriteList;
     glm::mat4 m_proj;
+    bool m_Stopped;
 };
 
 #endif /* GLWindow_hpp */

@@ -27,8 +27,7 @@ int main(int argc, const char * argv[]) {
     // insert code here...
     
     GLWindow* GLwindow = new GLWindow();
-    GLwindow->create();
-    GLFWwindow* window = GLwindow->getWindow();
+    GLwindow->create("test Name", 640.f, 480.f);
     GLwindow->setupContext();
 
     
@@ -36,15 +35,13 @@ int main(int argc, const char * argv[]) {
     while (1)
     {
         // Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
-        glfwPollEvents();
         auto now = std::chrono::high_resolution_clock::now();
 //        onUpdate(std::chrono::duration_cast<std::chrono::milliseconds>(now - begin).count());
         // Swap the screen buffers
-        GLwindow->render();
+        if (!GLwindow->render())
+            break;
         begin = now;
         // glfwSwapBuffers(window);
     }
-
-    glfwTerminate();
     return 0;
 }
