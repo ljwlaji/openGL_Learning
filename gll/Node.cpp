@@ -35,11 +35,11 @@ void Node::addTo(Node* parent)
 	parent->addChild(this);
 }
 
-void Node::addChild(Node* node)
+void Node::addChild(Node* child)
 { 
-	if (!node) 
+	if (!child) 
 		return; 
-	m_Children.push_back(node); 
-	setParent(node);
-	node->retain();
+	m_Children.push_back(child); 
+	child->setParent(child);
+	child->retain();
 }
