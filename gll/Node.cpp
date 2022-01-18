@@ -40,6 +40,6 @@ void Node::addChild(Node* child)
 	if (!child) 
 		return; 
 	m_Children.push_back(child); 
-	child->setParent(child);
+	child->setParent(this);
 	child->retain();
 }

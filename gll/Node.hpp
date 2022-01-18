@@ -13,21 +13,21 @@
 #include <vector>
 
 typedef struct Vec2{
-    float x;
-    float y;
+    float x = 0;
+    float y = 0;
 } Vec2;
 
 typedef struct Vec3 {
-    float x;
-    float y;
-    float z;
+    float x = 0;
+    float y = 0;
+    float z = 0;
 } Vec3;
 
 typedef struct Vec4 {
-    float x;
-    float y;
-    float z;
-    float w;
+    float x = 0;
+    float y = 0;
+    float z = 0;
+    float w = 0;
 } Vec4;
 
 typedef struct Size
@@ -47,7 +47,7 @@ public:
     void addTo(Node* parent);
     Node* getParent() const                 { return m_Parent; }
     void setParent(Node* node)              { if (node) m_Parent = node; }
-    std::vector<Node*>* getChildren()       { return &m_Children; }
+std::vector<Node*>* getChildren()       { return &m_Children; }
     void addChild(Node* node);
 private:
     Vec2 m_Position;
