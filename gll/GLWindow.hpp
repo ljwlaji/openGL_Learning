@@ -7,7 +7,7 @@
 
 #ifndef GLWindow_hpp
 #define GLWindow_hpp
-
+//#include "core_pch.h"
 #include <stdio.h>
 #include "Renderer.hpp"
 #include <../includes/GLFW/glfw3.h>
@@ -47,11 +47,15 @@ static std::array<QuadCommand, 4> createQuadCommand(float x, float y, float widt
 class GLWindow {
 public:
     GLWindow() {}
-    ~GLWindow() {}
-    void create(const std::string& name, float width, float height)
+    ~GLWindow()
     {
-        indices = new GLushort[MAX_INDEX_NUMBER];
-        command = new QuadCommand[MAX_QUAD_COMMAND];
+        delete m_Shader;
+        m_Shader = nullptr;
+    }
+    
+    void setStopped(bool stopped) { m_Stopped = stopped; }
+    void create(const std::string& name, float width, float height, GLFWwindow* cWindow = nullptr)
+    {
         if (!glfwInit())
             return;
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -60,8 +64,8 @@ public:
         #ifdef __APPLE__
             glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
         #endif
-        m_proj = glm::ortho(0.0f, 640.0f, 0.0f, 480.0f, -1.0f, 1.0f);
-        GLFWwindow* window = glfwCreateWindow(width, height, name.c_str(), NULL, NULL);
+        m_proj = glm::ortho(0.0f, width, 0.0f, height, -1.0f, 1.0f);
+        GLFWwindow* window = glfwCreateWindow(width, height, name.c_str(), NULL, cWindow);
         if (!window)
         {
             glfwTerminate();
@@ -77,6 +81,7 @@ public:
     }
     void setupContext()
     {
+        glfwMakeContextCurrent(m_Window);
         for (int i = 0, n = 0; i < MAX_INDEX_NUMBER; i += 6, n++)
         {
             indices[i]      = n * 4;
@@ -113,15 +118,15 @@ public:
         int offset = 0;
         if (m_SpriteList.empty())
         {
-            Shader* shader = Shader::Create("res/shaders/vertex.shader", "res/shaders/fragment.shader");
-            shader->setUniform1i("u_Texture2D", 0);
-            shader->Bind();
-            shader->setUniform4f("u_Color", 1.0f, 1.f, 1.f, 1.0f);
-            shader->setUniformMat4f("u_MVP", m_proj);
+            m_Shader = Shader::Create("res/shaders/vertex.shader", "res/shaders/fragment.shader");
+            m_Shader->setUniform1i("u_Texture2D", 0);
+            m_Shader->Bind();
+            m_Shader->setUniform4f("u_Color", 1.0f, 1.f, 1.f, 1.0f);
+            m_Shader->setUniformMat4f("u_MVP", m_proj);
             for (int i = 0; i != 1000; i++)
             {
                 Sprite* sprite = new Sprite("res/test.png");
-                sprite->setShaderProgram(shader);
+                sprite->setShaderProgram(m_Shader);
                 sprite->setPosition(100, 100);
                 m_SpriteList.push_back(sprite);
                 memcpy(&command[offset++ * 4], createQuadCommand(sprite->getPosition().x, sprite->getPosition().y, sprite->getTexture2D()->GetWidth(), sprite->getTexture2D()->GetHeight()).data(), sizeof(QuadCommand) * 4);
@@ -129,7 +134,7 @@ public:
             for (int i = 0; i != 1000; i++)
             {
                 Sprite* sprite = new Sprite("res/1111_ygfs.png");
-                sprite->setShaderProgram(shader);
+                sprite->setShaderProgram(m_Shader);
                 sprite->setPosition(100, 100);
                 m_SpriteList.push_back(sprite);
                 memcpy(&command[offset++ * 4], createQuadCommand(sprite->getPosition().x, sprite->getPosition().y, sprite->getTexture2D()->GetWidth(), sprite->getTexture2D()->GetHeight()).data(), sizeof(QuadCommand) * 4);
@@ -137,7 +142,7 @@ public:
             for (int i = 0; i != 1000; i++)
             {
                 Sprite* sprite = new Sprite("res/test.png");
-                sprite->setShaderProgram(shader);
+                sprite->setShaderProgram(m_Shader);
                 sprite->setPosition(100, 100);
                 m_SpriteList.push_back(sprite);
                 memcpy(&command[offset++ * 4], createQuadCommand(sprite->getPosition().x, sprite->getPosition().y, sprite->getTexture2D()->GetWidth(), sprite->getTexture2D()->GetHeight()).data(), sizeof(QuadCommand) * 4);
@@ -150,6 +155,7 @@ public:
         unsigned int startIndex = 0;
         (*m_SpriteList.begin())->getShaderProgram()->Bind();
         (*m_SpriteList.begin())->getTexture2D()->Bind();
+        m_Shader->Bind();
         unsigned int currShader = 0;
         unsigned int currTextureID = 0;
         Texture2D* texture = nullptr;
@@ -190,19 +196,12 @@ public:
     
     bool render()
     {
-        if (m_Stopped)
+        if (!m_Window)
             return false;
-        if (!glfwWindowShouldClose(m_Window))
+        if (m_Stopped)
         {
-            glfwPollEvents();
-            GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
-            GLCall(glClear(GL_COLOR_BUFFER_BIT));
-            onUpdate();
-            glfwSwapBuffers(m_Window);
-        }
-        else
-        {
-            glfwTerminate();
+            glfwDestroyWindow(m_Window);
+            m_Window = nullptr;
             Sprite * spr = nullptr;
             while (!m_SpriteList.empty())
             {
@@ -210,6 +209,18 @@ public:
                 m_SpriteList.pop_front();
                 delete spr;
             }
+            return false;
+        }
+        if (!glfwWindowShouldClose(m_Window))
+        {
+            glfwMakeContextCurrent(m_Window);
+            GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
+            GLCall(glClear(GL_COLOR_BUFFER_BIT));
+            onUpdate();
+            glfwSwapBuffers(m_Window);
+        }
+        else
+        {
             m_Stopped = true;
         }
         return true;
@@ -220,14 +231,14 @@ public:
     
 private:
     GLFWwindow* m_Window;
-    GLushort* indices;
-    QuadCommand* command;
+    GLushort indices[MAX_INDEX_NUMBER];
+    QuadCommand command[MAX_QUAD_COMMAND];
     unsigned int m_VAO;
     unsigned int m_VB;
     unsigned int m_EBO;
     std::list<Sprite*> m_SpriteList;
     glm::mat4 m_proj;
     bool m_Stopped;
+    Shader* m_Shader;
 };
-
 #endif /* GLWindow_hpp */

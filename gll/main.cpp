@@ -29,16 +29,23 @@ int main(int argc, const char * argv[]) {
     GLWindow* GLwindow = new GLWindow();
     GLwindow->create("test Name", 640.f, 480.f);
     GLwindow->setupContext();
+    
+    GLWindow* GLwindow2 = new GLWindow();
+    GLwindow2->create("test Name2", 640.f, 480.f, GLwindow->getWindow());
+    GLwindow2->setupContext();
 
     
     auto begin = std::chrono::high_resolution_clock::now();
     while (1)
     {
+        glfwPollEvents();
         // Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
         auto now = std::chrono::high_resolution_clock::now();
 //        onUpdate(std::chrono::duration_cast<std::chrono::milliseconds>(now - begin).count());
         // Swap the screen buffers
-        if (!GLwindow->render())
+        bool a = GLwindow2->render();
+        bool b = GLwindow->render();
+        if (!a && !b)
             break;
         begin = now;
         // glfwSwapBuffers(window);
