@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include "Ref.hpp"
+#include <vector>
 
 typedef struct Vec2{
     float x;
@@ -29,6 +30,12 @@ typedef struct Vec4 {
     float w;
 } Vec4;
 
+typedef struct Size
+{
+    float width;
+    float height;
+} Size;
+
 class Node : public Ref
 {
 public:
@@ -37,9 +44,15 @@ public:
     
     void setPosition(float x, float y);
     const Vec2& getPosition() const;
-    
+    void addTo(Node* parent);
+    Node* getParent() const                 { return m_Parent; }
+    void setParent(Node* node)              { if (node) m_Parent = node; }
+    std::vector<Node*>* getChildren()       { return &m_Children; }
+    void addChild(Node* node);
 private:
     Vec2 m_Position;
+    Node* m_Parent;
+    std::vector<Node*> m_Children;
 };
 
 #endif /* Node_hpp */

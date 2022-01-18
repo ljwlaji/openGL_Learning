@@ -29,3 +29,18 @@ Sprite::~Sprite()
     if (m_Shader)
         m_Shader->release();
 }
+
+
+Vec2 Sprite::coverToWorldSpace() const
+{
+    Vec2 pos;
+    const Node* currNode = this;
+    do
+    {
+        pos.x += currNode->getPosition().x;
+        pos.y += currNode->getPosition().y;
+        /* code */
+    } while (currNode = currNode->getParent());
+    
+    return pos;
+}

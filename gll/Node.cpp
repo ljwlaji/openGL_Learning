@@ -7,7 +7,7 @@
 
 #include "Node.hpp"
 
-Node::Node()
+Node::Node() : m_Parent(nullptr)
 {
     setPosition(0, 0);
 }
@@ -26,4 +26,20 @@ void Node::setPosition(float x, float y)
 const Vec2& Node::getPosition() const
 {
     return m_Position;
+}
+
+void Node::addTo(Node* parent)
+{
+	if (!parent || getParent())
+		return;
+	parent->addChild(this);
+}
+
+void Node::addChild(Node* node)
+{ 
+	if (!node) 
+		return; 
+	m_Children.push_back(node); 
+	setParent(node);
+	node->retain();
 }

@@ -23,6 +23,7 @@ public:
     Texture2D* getTexture2D() const { return m_Texture2D; }
     void setShaderProgram(Shader* shader) { m_Shader = shader; }
     Shader* getShaderProgram() const { return m_Shader; }
+    Vec2 coverToWorldSpace() const;
 private:
     Vec4 m_Color;
     Texture2D* m_Texture2D;

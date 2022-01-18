@@ -29,18 +29,18 @@ typedef struct QuadCommand {
 } QuadCommand;
 
 
-static std::array<QuadCommand, 4> createQuadCommand(float x, float y, float width, float height) {
+static std::array<QuadCommand, 4> createQuadCommand(const Vec2& pos, float width, float height) {
     QuadCommand v0;
-    v0.Position = { x, y};
+    v0.Position = { pos.x, pos.y};
     v0.UV = {0, 0};
     QuadCommand v1;
-    v1.Position = { x + width, y};
+    v1.Position = { pos.x + width, pos.y};
     v1.UV = {1, 0};
     QuadCommand v2;
-    v2.Position = { x + width, y + height};
+    v2.Position = { pos.x + width, pos.y + height};
     v2.UV = {1, 1};
     QuadCommand v3;
-    v3.Position = { x, y + height};
+    v3.Position = { pos.x, pos.y + height};
     v3.UV = {0, 1};
     return { v0, v1, v2, v3 };
 }
@@ -123,13 +123,16 @@ public:
             m_Shader->Bind();
             m_Shader->setUniform4f("u_Color", 1.0f, 1.f, 1.f, 1.0f);
             m_Shader->setUniformMat4f("u_MVP", m_proj);
+            Sprite* parent = nullptr;
             for (int i = 0; i != 1000; i++)
             {
                 Sprite* sprite = new Sprite("res/test.png");
+                if (!parent)
+                    parent = sprite;
                 sprite->setShaderProgram(m_Shader);
                 sprite->setPosition(100, 100);
                 m_SpriteList.push_back(sprite);
-                memcpy(&command[offset++ * 4], createQuadCommand(sprite->getPosition().x, sprite->getPosition().y, sprite->getTexture2D()->GetWidth(), sprite->getTexture2D()->GetHeight()).data(), sizeof(QuadCommand) * 4);
+                memcpy(&command[offset++ * 4], createQuadCommand(sprite->coverToWorldSpace(), sprite->getTexture2D()->GetWidth(), sprite->getTexture2D()->GetHeight()). data(), sizeof(QuadCommand) * 4);
             }
             for (int i = 0; i != 1000; i++)
             {
@@ -137,7 +140,7 @@ public:
                 sprite->setShaderProgram(m_Shader);
                 sprite->setPosition(100, 100);
                 m_SpriteList.push_back(sprite);
-                memcpy(&command[offset++ * 4], createQuadCommand(sprite->getPosition().x, sprite->getPosition().y, sprite->getTexture2D()->GetWidth(), sprite->getTexture2D()->GetHeight()).data(), sizeof(QuadCommand) * 4);
+                memcpy(&command[offset++ * 4], createQuadCommand(sprite->coverToWorldSpace(), sprite->getTexture2D()->GetWidth(), sprite->getTexture2D()->GetHeight()). data(), sizeof(QuadCommand) * 4);
             }
             for (int i = 0; i != 1000; i++)
             {
@@ -145,7 +148,7 @@ public:
                 sprite->setShaderProgram(m_Shader);
                 sprite->setPosition(100, 100);
                 m_SpriteList.push_back(sprite);
-                memcpy(&command[offset++ * 4], createQuadCommand(sprite->getPosition().x, sprite->getPosition().y, sprite->getTexture2D()->GetWidth(), sprite->getTexture2D()->GetHeight()).data(), sizeof(QuadCommand) * 4);
+                memcpy(&command[offset++ * 4], createQuadCommand(sprite->coverToWorldSpace(), sprite->getTexture2D()->GetWidth(), sprite->getTexture2D()->GetHeight()). data(), sizeof(QuadCommand) * 4);
             }
             unsigned int size = sizeof(QuadCommand) * 4 * m_SpriteList.size();
             GLCall(glBufferSubData(GL_ARRAY_BUFFER, 0, size, command));
