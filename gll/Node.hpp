@@ -47,8 +47,10 @@ public:
     void addTo(Node* parent);
     Node* getParent() const                 { return m_Parent; }
     void setParent(Node* node)              { if (node) m_Parent = node; }
-std::vector<Node*>* getChildren()       { return &m_Children; }
+    std::vector<Node*>* getChildren()       { return &m_Children; }
     void addChild(Node* node);
+    void removeFromParent();
+    void removeChild(Node* node);
 private:
     Vec2 m_Position;
     Node* m_Parent;

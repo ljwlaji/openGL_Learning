@@ -14,7 +14,9 @@ Node::Node() : m_Parent(nullptr)
 
 Node::~Node()
 {
-    
+    while (m_Children.size()) {
+        removeChild(*m_Children.begin());
+    }
 }
 
 void Node::setPosition(float x, float y)
@@ -43,3 +45,24 @@ void Node::addChild(Node* child)
 	child->setParent(this);
 	child->retain();
 }
+
+void Node::removeFromParent()
+{
+	if (!getParent())
+		return;
+	getParent()->removeChild(this);
+}
+
+void Node::removeChild(Node* node)
+{
+	for (int i = 0; i != m_Children.size(); i++)
+	{
+		if (m_Children.at(i) == node)
+		{
+			m_Children.erase(m_Children.begin() + i);
+            node->release();
+			break;
+		}
+	}
+}
+
