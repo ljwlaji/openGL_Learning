@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		873C84FE27983173008A908F /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 873C84FC27983173008A908F /* Application.cpp */; };
 		876DC49C277AD0C00020AD9B /* Texture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 876DC49A277AD0C00020AD9B /* Texture2D.cpp */; };
 		876DC49F277AD1960020AD9B /* stbImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 876DC49D277AD1960020AD9B /* stbImage.cpp */; };
 		87A3DB08278491FA0067C9F7 /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87A3DB06278491FA0067C9F7 /* Node.cpp */; };
@@ -42,6 +43,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		873C84FC27983173008A908F /* Application.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Application.cpp; sourceTree = "<group>"; };
+		873C84FD27983173008A908F /* Application.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Application.hpp; sourceTree = "<group>"; };
 		876DC49A277AD0C00020AD9B /* Texture2D.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Texture2D.cpp; sourceTree = "<group>"; };
 		876DC49B277AD0C00020AD9B /* Texture2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Texture2D.hpp; sourceTree = "<group>"; };
 		876DC49D277AD1960020AD9B /* stbImage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stbImage.cpp; sourceTree = "<group>"; };
@@ -149,6 +152,8 @@
 				87A3DB1027889B8C0067C9F7 /* TextureCache.hpp */,
 				87D33F90278E9AC9003A2DA7 /* GLWindow.cpp */,
 				87D33F91278E9AC9003A2DA7 /* GLWindow.hpp */,
+				873C84FC27983173008A908F /* Application.cpp */,
+				873C84FD27983173008A908F /* Application.hpp */,
 			);
 			path = gll;
 			sourceTree = "<group>";
@@ -242,6 +247,7 @@
 			files = (
 				87DA486B275B833800CD850D /* Renderer.cpp in Sources */,
 				87DA4877275B8F6600CD850D /* VertexBufferLayout.cpp in Sources */,
+				873C84FE27983173008A908F /* Application.cpp in Sources */,
 				87DA4845275A5CFD00CD850D /* main.cpp in Sources */,
 				87DA4874275B8E8900CD850D /* VertexArrayObject.cpp in Sources */,
 				87D33F92278E9AC9003A2DA7 /* GLWindow.cpp in Sources */,

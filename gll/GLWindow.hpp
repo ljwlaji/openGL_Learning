@@ -29,6 +29,27 @@ typedef struct QuadCommand {
 } QuadCommand;
 
 
+//void GLFWWindowSizeCallback(GLFWwindow* a_pWindow, int a_iWidth, int a_iHeight);
+//{
+//    // find the window data corrosponding to a_pWindow;
+//    WindowHandle window = nullptr;
+//    for (auto& itr : g_lWindows)
+//    {
+//        if (itr->m_pWindow == a_pWindow)
+//        {
+//            window = itr;
+//            window->m_uiWidth = a_iWidth;
+//            window->m_uiHeight = a_iHeight;
+//            window->m_m4Projection = glm::perspective(45.0f, float(a_iWidth)/float(a_iHeight), 0.1f, 1000.0f);
+//        }
+//    }
+//
+//    WindowHandle previousContext = g_hCurrentContext;
+//    MakeContextCurrent(window);
+//    glViewport(0, 0, a_iWidth, a_iHeight);
+//    MakeContextCurrent(previousContext);
+//}
+
 static std::array<QuadCommand, 4> createQuadCommand(const Vec2& pos, float width, float height) {
     QuadCommand v0;
     v0.Position = { pos.x, pos.y};
@@ -67,10 +88,7 @@ public:
         m_proj = glm::ortho(0.0f, width, 0.0f, height, -1.0f, 1.0f);
         GLFWwindow* window = glfwCreateWindow(width, height, name.c_str(), NULL, cWindow);
         if (!window)
-        {
-            glfwTerminate();
             return;
-        }
         setWindow(window);
         glfwMakeContextCurrent(window);
         glfwSwapInterval(1);
